@@ -4,9 +4,11 @@ import Link from 'next/link';
 import {
   Navbar, Container, Nav, Button,
 } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 import { signOut } from '../utils/auth';
+import Search from './Search';
 
-export default function NavBar() {
+export default function NavBar({ searchInput, setSearchInput }) {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
@@ -20,6 +22,7 @@ export default function NavBar() {
             <Link passHref href="/team/new">
               <Nav.Link>New</Nav.Link>
             </Link>
+            <Search searchInput={searchInput} setSearchInput={setSearchInput} />
             <Button align-item="end" variant="danger" onClick={signOut}>Sign Out</Button>
           </Nav>
         </Navbar.Collapse>
@@ -27,3 +30,13 @@ export default function NavBar() {
     </Navbar>
   );
 }
+
+NavBar.propTypes = {
+  searchInput: PropTypes.string,
+  setSearchInput: PropTypes.string,
+};
+
+NavBar.defaultProps = {
+  searchInput: '',
+  setSearchInput: '',
+};
