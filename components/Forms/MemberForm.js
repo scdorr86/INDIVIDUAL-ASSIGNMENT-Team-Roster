@@ -20,6 +20,17 @@ function MemberForm({ obj, show, setShow }) {
   const router = useRouter();
   const { user } = useAuth();
 
+  const closeModal = () => {
+    router.push('/team');
+  };
+
+  const config = {
+    show,
+    setShow,
+    closeHandler: closeModal,
+    onHideHandler: '',
+  };
+
   useEffect(() => {
     if (obj.firebaseKey) setFormInput(obj);
   }, [obj, user]);
@@ -46,10 +57,6 @@ function MemberForm({ obj, show, setShow }) {
         });
       });
     }
-  };
-
-  const closeModal = () => {
-    router.push('/team');
   };
 
   return (
@@ -108,7 +115,7 @@ function MemberForm({ obj, show, setShow }) {
         {/* SUBMIT BUTTON  */}
         <Button type="submit">{obj.firebaseKey ? 'Update' : 'Create'} Member</Button>
       </Form>
-      <SubmitModal show={show} setShow={setShow} closeHandler={closeModal} />
+      <SubmitModal config={config} />
     </>
   );
 }
