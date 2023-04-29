@@ -20,6 +20,23 @@ function MemberForm({ obj, show, setShow }) {
   const router = useRouter();
   const { user } = useAuth();
 
+  const closeModal = () => {
+    router.push('/team');
+    setShow(false);
+  };
+
+  const config = {
+    show,
+    setShow,
+    closeHandler: closeModal,
+    onHideHandler: '',
+  };
+
+  const openModal = () => {
+    console.warn('test warn');
+    setShow(true);
+  };
+
   useEffect(() => {
     if (obj.firebaseKey) setFormInput(obj);
   }, [obj, user]);
@@ -35,8 +52,7 @@ function MemberForm({ obj, show, setShow }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (obj.firebaseKey) {
-      updateMember(formInput)
-        .then(() => router.push('/team'));
+      updateMember(formInput).then(openModal());
     } else {
       const payload = { ...formInput, uid: user.uid };
       createMember(payload).then(({ name }) => {
@@ -46,10 +62,6 @@ function MemberForm({ obj, show, setShow }) {
         });
       });
     }
-  };
-
-  const closeModal = () => {
-    router.push('/team');
   };
 
   return (
@@ -108,7 +120,7 @@ function MemberForm({ obj, show, setShow }) {
         {/* SUBMIT BUTTON  */}
         <Button type="submit">{obj.firebaseKey ? 'Update' : 'Create'} Member</Button>
       </Form>
-      <SubmitModal show={show} setShow={setShow} closeHandler={closeModal} />
+      <SubmitModal config={config} />
     </>
   );
 }
@@ -122,13 +134,13 @@ MemberForm.propTypes = {
     firebaseKey: PropTypes.string,
   }),
   show: PropTypes.bool,
-  setShow: PropTypes.bool,
+  setShow: PropTypes.func,
 };
 
 MemberForm.defaultProps = {
   obj: initialState,
   show: false,
-  setShow: false,
+  setShow: () => {},
 };
 
 export default MemberForm;

@@ -1,8 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import { signIn } from '../utils/auth';
+import SubmitModal from './Modal';
 
-function Signin() {
+function Signin({ show, setShow }) {
+  const config = {
+    show,
+    setShow,
+    closeHandler: 'string',
+    image: '',
+  };
+
   return (
     <div
       className="text-center d-flex flex-column justify-content-center align-content-center"
@@ -18,8 +27,19 @@ function Signin() {
       <Button type="button" size="lg" className="copy-btn" onClick={signIn}>
         Sign In
       </Button>
+      <SubmitModal config={config} />
     </div>
   );
 }
+
+Signin.propTypes = {
+  show: PropTypes.bool,
+  setShow: PropTypes.func,
+};
+
+Signin.defaultProps = {
+  show: false,
+  setShow: () => {},
+};
 
 export default Signin;

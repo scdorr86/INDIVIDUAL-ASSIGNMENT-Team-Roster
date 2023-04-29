@@ -13,10 +13,10 @@ export default function AddMember({ show, setShow }) {
 }
 AddMember.propTypes = {
   show: PropTypes.bool,
-  setShow: PropTypes.bool,
+  setShow: PropTypes.func,
 };
 
 AddMember.defaultProps = {
   show: false,
-  setShow: false,
+  setShow: () => {},
 };
