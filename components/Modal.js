@@ -26,7 +26,7 @@ export default function SubmitModal({ config }) {
 SubmitModal.propTypes = {
   config: PropTypes.shape({
     show: PropTypes.bool,
-    setShow: PropTypes.bool,
+    setShow: PropTypes.func,
     closeHandler: PropTypes.func,
     onHideHandler: PropTypes.func,
   }),
@@ -35,7 +35,7 @@ SubmitModal.propTypes = {
 SubmitModal.defaultProps = {
   config: PropTypes.shape({
     show: false,
-    setShow: false,
+    setShow: () => {},
     closeHandler: null,
     onHideHandler: null,
   }),
