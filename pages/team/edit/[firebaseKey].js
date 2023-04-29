@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import PropTypes from 'prop-types';
 import { getSingleMember } from '../../../api/memberData';
 import MemberForm from '../../../components/Forms/MemberForm';
-import PropTypes from 'prop-types';
 
 export default function EditMember({ show, setShow }) {
   const [editMember, setEditMember] = useState({});
